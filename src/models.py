@@ -51,3 +51,18 @@ class Gemini25Flash(BaseLLMModel):
         )
 
 model_dict["gemini-2.5-flash"] = Gemini25Flash
+
+class Gemini25FlashLite(BaseLLMModel):
+    """
+    Gemini 2.5 Flash Lite
+    """
+    
+    def __init__(self) -> None:
+        super().__init__()
+        
+        self.langchain_model = ChatGoogleGenerativeAI(
+            model="gemini-2.5-flash-lite",
+            google_api_key=GOOGLE_API_KEY,
+        )
+
+model_dict["gemini-2.5-flash-lite"] = Gemini25FlashLite

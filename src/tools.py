@@ -7,9 +7,7 @@ import json
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain_core.tools import tool
 
-@tool(
-    name_or_callable="search_internet",
-)
+@tool
 def search_internet(context_type: str, query: str, gl: str, location: str) -> dict:
     """
     Search the internet and get real-time results for any query at given location.
@@ -24,6 +22,64 @@ def search_internet(context_type: str, query: str, gl: str, location: str) -> di
     _ = GoogleSerperAPIWrapper(
         gl=gl,
         type="search",
+        tbs=SERPER_TBS,
+        serper_api_key=SERPER_API_KEY
+    )
+    
+    results = _.results(
+        query=query,
+        location=location
+    )
+    
+    return json.dumps({
+        "context_type": context_type,
+        "results": results
+    })
+
+@tool
+def search_news(context_type: str, query: str, gl: str, location: str) -> dict:
+    """
+    Search the internet and get real-time news related to any query at given location.
+    
+    Args:
+        context_type (str): The context type being searched for. Used when compiling raw context search results.
+        query (str): The query to search.
+        gl (str): The country to filter the search.
+        location (str): Specific location to filter the search.
+    """
+    
+    _ = GoogleSerperAPIWrapper(
+        gl=gl,
+        type="news",
+        tbs=SERPER_TBS,
+        serper_api_key=SERPER_API_KEY
+    )
+    
+    results = _.results(
+        query=query,
+        location=location
+    )
+    
+    return json.dumps({
+        "context_type": context_type,
+        "results": results
+    })
+
+@tool
+def search_places(context_type: str, query: str, gl: str, location: str) -> dict:
+    """
+    Search the internet and get real-time places related to any query at given location.
+    
+    Args:
+        context_type (str): The context type being searched for. Used when compiling raw context search results.
+        query (str): The query to search.
+        gl (str): The country to filter the search.
+        location (str): Specific location to filter the search.
+    """
+    
+    _ = GoogleSerperAPIWrapper(
+        gl=gl,
+        type="places",
         tbs=SERPER_TBS,
         serper_api_key=SERPER_API_KEY
     )

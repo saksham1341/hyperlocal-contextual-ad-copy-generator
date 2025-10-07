@@ -7,7 +7,7 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from pprint import pprint
 from src.nodes import generate_potential_context_types, fetch_contexts, raw_context_compiler, generate_ad_copies
 from src.state import State
-from src.tools import search_internet
+from src.tools import search_internet, search_news, search_places
 
 graph_builder = StateGraph(
     state_schema=State,
@@ -15,7 +15,7 @@ graph_builder = StateGraph(
 
 graph_builder.add_node("generate_potential_context_types", generate_potential_context_types)
 graph_builder.add_node("fetch_contexts", fetch_contexts)
-graph_builder.add_node("tools", ToolNode(tools=[search_internet]))
+graph_builder.add_node("tools", ToolNode(tools=[search_internet, search_news, search_places]))
 graph_builder.add_node("raw_context_compiler", raw_context_compiler)
 graph_builder.add_node("generate_ad_copies", generate_ad_copies)
 

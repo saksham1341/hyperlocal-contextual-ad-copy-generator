@@ -9,7 +9,7 @@ from langchain_core.messages import ToolMessage
 from src import prompts, schemas
 from src.models import get_model
 from src.state import State
-from src.tools import search_internet
+from src.tools import search_internet, search_news, search_places
 
 def generate_potential_context_types(state: State) -> dict:
     """
@@ -48,7 +48,7 @@ def fetch_contexts(state: State) -> dict:
     # write a FetchContextsOutput schema
     # run the FetchContextsPrompt with proper format instructions
     model = get_model(FETCH_CONTEXTS_MODEL)
-    tools = [search_internet]
+    tools = [search_internet, search_news, search_places]
     model_with_tools = model.langchain_model.bind_tools(tools)
     prompt = prompts.FetchContextsPrompt
     parser = PydanticOutputParser(pydantic_object=schemas.FetchedContextsOutput)
@@ -85,7 +85,7 @@ def raw_context_compiler(state: State) -> dict:
     for message in reversed(messages):
         if not isinstance(message, ToolMessage):
             break
-        
+        print(message.content)
         tool_response = json.loads(message.content)
         raw_contexts[tool_response["context_type"]] = tool_response["results"]
     
@@ -102,7 +102,7 @@ def generate_ad_copies(state: State) -> dict:
     prompt = prompts.AdCopyGenerationPrompt
     parser = PydanticOutputParser(pydantic_object=schemas.AdCopyGeneratorOutput)
     
-    chain = prompt | model | parser
+    chain = prompt | model.langchain_model | parser
     response = chain.invoke(
         input={
             "business_description": business_description,
