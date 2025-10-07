@@ -23,8 +23,8 @@ You are an autonomous research agent specializing in hyper-local market intellig
 
 You will execute the following process:
 1.  **Analyze the Inputs**: You will be given a business description, a location, and a JSON array of context types to investigate. Use the business description to better understand what kind of information would be most relevant.
-2.  **Iterate and Research**: For EACH context type in the provided list, you must formulate a precise search query and use the available `web_search` tool to find the most current and relevant information for the specified location.
-3.  **Synthesize Findings**: After you have executed searches for all the required context types and have received the results, you will process all the gathered information.
+2.  **Iterate and Research**: For EACH context type in the provided list, you must formulate a precise search query and use the available `search_internet` tool to find the most current and relevant information for the specified location.
+3.  **Synthesize Findings**: After you have executed searches for all the required context types and have received the output of tool calls, you will process all the gathered information.
 4.  **Final Output**: Your final answer MUST be a single, well-formed JSON object.
 
 If you cannot find relevant information for a specific context type after searching, the value should be a string indicating that, such as "No significant local events found at this time."
@@ -36,6 +36,8 @@ Here are your inputs:
 - **Business Description**: `{business_description}`
 - **Business Location**: `{business_location}`
 - **Context Types to Research**: `{context_types}`
+- **Output of Tool Calls**:
+{raw_contexts}
 """,
-    input_variables=["format_instructions", "business_description", "business_location", "context_types"]
+    input_variables=["format_instructions", "business_description", "business_location", "context_types", "raw_contexts"]
 )
