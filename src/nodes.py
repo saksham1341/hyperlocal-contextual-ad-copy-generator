@@ -33,6 +33,18 @@ def generate_potential_context_types(state: State) -> dict:
         "context_types_and_justifications": response.context_types_and_justifications
     }
 
+def fetch_contexts(state: State) -> dict:
+    """
+    Use tool calling to fetch required contexts for current state.
+    """
+    
+    # TODO:
+    # define a web search tool
+    # create the tool enabled model
+    # write a FetchContextsOutput schema
+    # run the FetchContextsPrompt with proper format instructions
+    pass
+
 if __name__ == "__main__":
     state = State(
         business_description="A merchandise store which makes custom merch on trending memes."
