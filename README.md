@@ -2,6 +2,10 @@
 
 **WIP**
 
+## LangGraph Architecture
+
+![langgraph architecture](graph.png)
+
 ## Run the project
 
 ```sh
