@@ -17,3 +17,4 @@ def _confirm_existence_and_get(key: str) -> str:
         raise RuntimeError(f"`{key}` not found in the environment.")
 
 GOOGLE_API_KEY = _confirm_existence_and_get("GOOGLE_API_KEY")
+POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL = getenv("POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL", "gemini-2.5-flash")
