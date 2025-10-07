@@ -15,17 +15,17 @@ For each context type you identify, provide a brief, one-sentence justification 
 Business Description:
 {business_description}
 
-Do not write ad copy. Only provide the list of context types and their justifications.
+Do not write ad copy. Your entire response must be a single, valid JSON object that adheres strictly to the schema below. Do not include any text, explanations, or markdown formatting before or after the JSON.
 
 Example for a business described as "A quiet bookstore with an in-house cafe serving artisanal coffee and pastries":
-
-Weather: Perfect for promoting the cozy cafe with a hot coffee on a rainy day, or the cool, air-conditioned reading space on a hot day.
-
-Time of Day: Ads can target the morning commute for coffee, lunchtime for a quick bite and read, or evenings for a relaxing place to unwind.
-
-Local Events: Can advertise as a quiet escape from a noisy nearby festival or a convenient meeting spot for conference attendees.
-
-Air Quality Index (AQI): On days with poor air quality, the store can be promoted as a "clean air oasis" for reading and relaxing indoors.
+{{
+    "context_types_and_justifications": {{
+        "Weather": "Perfect for promoting the cozy cafe with a hot coffee on a rainy day, or the cool, air-conditioned reading space on a hot day.",
+        "Time of Day": "Ads can target the morning commute for coffee, lunchtime for a quick bite and read, or evenings for a relaxing place to unwind.",
+        "Local Events": "Can advertise as a quiet escape from a noisy nearby festival or a convenient meeting spot for conference attendees.",
+        "Air Quality Index (AQI)": "On days with poor air quality, the store can be promoted as a "clean air oasis" for reading and relaxing indoors."
+    }}
+}}
 """,
     input_variables=["business_description"]
 )

@@ -29,3 +29,10 @@ def generate_potential_context_types(state: State) -> dict:
     return {
         "context_types_and_justifications": response.context_types_and_justifications
     }
+
+if __name__ == "__main__":
+    state = State(
+        business_description="A merchandise store which makes custom merch on trending memes."
+    )
+    
+    print(generate_potential_context_types(state))
