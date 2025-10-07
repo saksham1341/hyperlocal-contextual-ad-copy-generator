@@ -2,4 +2,18 @@
 Project Configurations
 """
 
-pass
+from os import getenv
+
+def _confirm_existence_and_get(key: str) -> str:
+    """
+    Confirm that an environment variable exists and return it's value.
+    
+    Args:
+        key: The environment variable to get.
+    """
+    
+    _ = getenv(key, None)
+    if _ is None:
+        raise RuntimeError(f"`{key}` not found in the environment.")
+
+GOOGLE_API_KEY = _confirm_existence_and_get("GOOGLE_API_KEY")
