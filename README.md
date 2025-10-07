@@ -8,6 +8,7 @@ Designed for marketers and developers who want to automate ad creative generatio
 ## Live Deployment
 
 The project is live [here](https://hyperlocal-contextual-ad-copy-generator.onrender.com)!
+![Sample GIF](sample.gif)
 
 ---
 
