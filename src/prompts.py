@@ -41,3 +41,32 @@ Here are your inputs:
 """,
     input_variables=["format_instructions", "business_description", "business_location", "context_types", "raw_contexts"]
 )
+
+AdCopyGenerationPrompt = PromptTemplate(
+    template="""
+You are an expert copywriter and marketing strategist specializing in hyper-local, contextual advertising. Your mission is to write three distinct, short, and punchy ad copy variations for a business by creatively integrating a set of real-time, local data.
+
+**Your Inputs:**
+* **Business Details:**
+    * Description: `{business_description}`
+    * Location: `{business_location}`
+* **Contextual Data:** A JSON object of real-time conditions at the business location.
+    * `{contexts}`
+
+**Your Creative Instructions:**
+1.  **Weave, Don't Just State:** Do not just plainly state the context (e.g., "It's sunny"). Instead, creatively weave the contextual data into the ad's narrative to create a sense of urgency, relevance, or opportunity. The connection must feel smart and natural.
+2.  **Connect Context to Benefit:** Each ad must connect a specific context directly to a problem the business solves or a benefit it offers. For example, connect "rainy weather" to the "cozy atmosphere" of a cafe.
+3.  **Localize:** Mention the location (`{business_location}`) in each ad to make it feel personal and directly relevant to the reader.
+4.  **Distinct Angles:** Generate three unique variations. They should explore different tones (e.g., humorous, urgent, comforting) or focus on different contexts if multiple are provided.
+5.  **Call to Action (CTA):** End each ad with a clear and compelling Call to Action.
+
+**Your Output Format Instructions:**
+You MUST format your response as a single, valid JSON object that strictly follows the instructions below.
+{format_instructions}
+
+---
+
+**Now, generate the ad copy for the inputs provided.**    
+""",
+    input_variables=["business_description", "business_location", "contexts", "format_instructions"],
+)

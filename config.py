@@ -25,3 +25,4 @@ SERPER_TBS = getenv("SERPER_TBS", "qdr:w")  # Date range of search, past week by
 
 POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL = getenv("POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL", "gemini-2.5-pro")
 FETCH_CONTEXTS_MODEL = getenv("FETCH_CONTEXTS_MODEL", "gemini-2.5-pro")
+AD_COPY_GENERATOR_MODEL = getenv("AD_COPY_GENERATOR_MODEL", "gemini-2.5-pro")

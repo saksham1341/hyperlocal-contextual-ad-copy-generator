@@ -2,7 +2,7 @@
 Graph Nodes
 """
 
-from config import FETCH_CONTEXTS_MODEL, POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL
+from config import AD_COPY_GENERATOR_MODEL, FETCH_CONTEXTS_MODEL, POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL
 import json
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.messages import ToolMessage
@@ -65,7 +65,7 @@ def fetch_contexts(state: State) -> dict:
     )
     
     try:
-        contexts = parser.parse(response.content)
+        contexts = parser.parse(response.content).contexts
     except:
         contexts = None
     
@@ -91,6 +91,29 @@ def raw_context_compiler(state: State) -> dict:
     
     return {
         "raw_contexts": raw_contexts,
+    }
+
+def generate_ad_copies(state: State) -> dict:
+    business_description = state["business_description"]
+    business_location = state["business_location"]
+    contexts = state["contexts"]
+    
+    model = get_model(AD_COPY_GENERATOR_MODEL)
+    prompt = prompts.AdCopyGenerationPrompt
+    parser = PydanticOutputParser(pydantic_object=schemas.AdCopyGeneratorOutput)
+    
+    chain = prompt | model | parser
+    response = chain.invoke(
+        input={
+            "business_description": business_description,
+            "business_location": business_location,
+            "contexts": json.dumps(contexts),
+            "format_instructions": parser.get_format_instructions()
+        }
+    )
+    
+    return {
+        "ad_copies": response.ad_copies
     }
 
 if __name__ == "__main__":
