@@ -85,7 +85,7 @@ def raw_context_compiler(state: State) -> dict:
     for message in reversed(messages):
         if not isinstance(message, ToolMessage):
             break
-        print(message.content)
+        
         tool_response = json.loads(message.content)
         raw_contexts[tool_response["context_type"]] = tool_response["results"]
     

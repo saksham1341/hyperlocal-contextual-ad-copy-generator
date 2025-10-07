@@ -48,24 +48,3 @@ graph_builder.add_conditional_edges(
 graph_builder.add_edge("tools", "raw_context_compiler")
 graph_builder.add_edge("raw_context_compiler", "fetch_contexts")
 graph_builder.add_edge("generate_ad_copies", END)
-
-graph = graph_builder.compile()
-with open("graph.png", "wb") as f:
-    f.write(graph.get_graph().draw_mermaid_png())
-
-resp = graph.stream({
-    "business_description": "A merchandise store which makes custom merch on trending memes.",
-    "business_location": "Noida, Uttar Pradesh, India",
-}, stream_mode="values")
-
-waiting_for = ["context_types_and_justifications", "raw_contexts", "contexts", "ad_copies"]
-for x in resp:
-    if waiting_for and x.get(waiting_for[0], False):
-        print()
-        print("=" * 50)
-        print(f"GENERATED {waiting_for[0]}")
-        print()
-        pprint(x[waiting_for[0]])
-        print()
-        
-        waiting_for = waiting_for[1:]
