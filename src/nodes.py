@@ -3,6 +3,7 @@ Graph Nodes
 """
 
 from config import POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL
+from langchain_core.output_parsers import PydanticOutputParser
 from src import prompts, schemas
 from src.models import get_model
 from src.state import State
@@ -16,14 +17,16 @@ def generate_potential_context_types(state: State) -> dict:
     
     business_description = state["business_description"]
     model = get_model(POTENTIAL_CONTEXT_TYPE_GENERATOR_MODEL)
-    langchain_model = model.langchain_model.with_structured_output(schema=schemas.GeneratedPotentialContextTypesOutput)
+    prompt = prompts.GeneratePotentialContextTypesPrompt
+    parser = PydanticOutputParser(pydantic_object=schemas.GeneratedPotentialContextTypesOutput)
     
-    response = langchain_model.invoke(
-        input=prompts.GeneratePotentialContextTypesPrompt.invoke(
-            input={
-                "business_description": business_description
-            }
-        )
+    chain = prompt | model.langchain_model | parser
+    
+    response = chain.invoke(
+        input={
+            "format_instructions": parser.get_format_instructions(),
+            "business_description": business_description
+        }
     )
     
     return {

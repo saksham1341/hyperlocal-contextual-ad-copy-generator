@@ -6,26 +6,13 @@ from langchain_core.prompts import PromptTemplate
 
 GeneratePotentialContextTypesPrompt = PromptTemplate(
     template="""
-You are an expert marketing strategist specializing in hyper-local, contextual advertising. Your primary skill is identifying real-world, dynamic conditions that can be used to create timely and relevant marketing messages.
+You are an expert marketing strategist. Your task is to analyze the business description to identify potential context types that can be used for hyper-local, contextual ad campaigns, and provide a clear justification for why each context type is relevant to the business.
 
-Your task is to analyze the following business description and generate a concise list of "context types" that this business could use for its ad campaigns. These context types must be categories of data that can realistically be fetched for a given location using APIs or other real-time data sources.
-
-For each context type you identify, provide a brief, one-sentence justification for why it is relevant to this specific business.
+Follow the instructions below to format your response.
+{format_instructions}
 
 Business Description:
 {business_description}
-
-Do not write ad copy. Your entire response must be a single, valid JSON object that adheres strictly to the schema below. Do not include any text, explanations, or markdown formatting before or after the JSON.
-
-Example for a business described as "A quiet bookstore with an in-house cafe serving artisanal coffee and pastries":
-{{
-    "context_types_and_justifications": {{
-        "Weather": "Perfect for promoting the cozy cafe with a hot coffee on a rainy day, or the cool, air-conditioned reading space on a hot day.",
-        "Time of Day": "Ads can target the morning commute for coffee, lunchtime for a quick bite and read, or evenings for a relaxing place to unwind.",
-        "Local Events": "Can advertise as a quiet escape from a noisy nearby festival or a convenient meeting spot for conference attendees.",
-        "Air Quality Index (AQI)": "On days with poor air quality, the store can be promoted as a "clean air oasis" for reading and relaxing indoors."
-    }}
-}}
 """,
-    input_variables=["business_description"]
+    input_variables=["business_description", "format_instructions"]
 )
