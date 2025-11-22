@@ -3,8 +3,10 @@ Streamlit App
 """
 
 from graph import graph_builder
+from github_link_component import github_link
 import streamlit as st
 
+github_link("https://github.com/saksham1341/hyperlocal-contextual-ad-copy-generator")
 st.title("Hyperlocal Contextual Ad Copy Generator")
 st.text("Stop writing generic ads. Create marketing that connects with customers by using AI to instantly weave today's local conditions into your promotions.")
 st.divider()
